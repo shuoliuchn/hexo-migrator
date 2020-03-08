@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+            <a href="{% url 'web:categories_add' %}" class="btn btn-success">新建分类</a>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>外层文件夹名</th>
+                    <th>分类名称</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for categories in categories_list %}
+                    <tr>
+                        <td>{{ categories.wrapper_folder }}</td>
+                        <td>{{ categories.category_name }}</td>
+                        <td>
+                            <a href="{% url 'web:categories_edit' categories.pk %}" class="btn btn-info btn-xs">
+                                <i class="glyphicon glyphicon-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4 col-md-offset-4">
+            <a href="{% url 'web:tags_add' %}" class="btn btn-success">新建标签</a>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>标签名称</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for tags in tags_list %}
+                    <tr>
+                    <td>{{ tags.tag_name }}</td>
+                    <td>
+                        <a href="{% url 'web:categories_edit' tags.pk %}" class="btn btn-info btn-xs">
+                            <i class="glyphicon glyphicon-edit"></i>
+                        </a>
+                    </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

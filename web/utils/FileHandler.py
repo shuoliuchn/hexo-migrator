@@ -7,7 +7,7 @@ from django.conf import settings
 from . import DBHandler
 
 
-def img_migration(file_detail_list):
+def img_migration(file_detail_list, blog_gen_dir=settings.BLOG_GEN_DIR):
     for file_dict in file_detail_list:
         img_path = file_dict.get('img_path')
         if img_path:
@@ -15,7 +15,7 @@ def img_migration(file_detail_list):
             for file in file_list:
                 file_path = os.path.join(img_path, file)
                 file_rel_path = file_dict.get('img_rel_path')
-                target_file_path = os.path.join(settings.BLOG_GEN_DIR, file_rel_path, file)
+                target_file_path = os.path.join(blog_gen_dir, file_rel_path, file)
                 target_file_dir = os.path.dirname(target_file_path)
                 if os.path.isfile(target_file_path):
                     # 如果目标路径有同名文件，默认跳过

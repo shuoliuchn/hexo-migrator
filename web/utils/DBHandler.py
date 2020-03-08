@@ -1,6 +1,6 @@
 import datetime
 
-from django.conf import settings
+from django.db.models import Q
 
 from web import models
 
@@ -15,7 +15,9 @@ def old_blog_db_handler(data_dict: dict):
     blog_obj = models.BlogModel.objects.filter(path=path).first() or models.BlogModel()
     blog_obj.title = data_dict.get('title') or data_dict.get('file_title')
     blog_obj.path = path
-    blog_obj.categories = data_dict.get('categories') or settings.CATEGORY_DICT[data_dict.get('wrapper_folder')]
+    blog_obj.categories = models.CategoriesModel.objects.filter(
+        Q(category_name=data_dict.get('categories')) | Q(wrapper_folder=data_dict.get('wrapper_folder'))
+    ).first()
     # blog_obj.tags = data_dict.get('tags')
     blog_obj.is_mathjax = bool(data_dict.get('mathjax'))
     blog_obj.allow_comments = bool(data_dict.get('comments'))
@@ -28,3 +30,17 @@ def old_blog_db_handler(data_dict: dict):
     blog_obj.content = data_dict.get('content')
 
     blog_obj.save()
+
+
+def categories_generator(categories_dict: dict):
+    """
+    使用字典，批量导入分类信息
+    :param categories_dict: {外层文件夹名: 分类名}
+    :return:
+    """
+    for wrapper_folder, category_name in categories_dict.items():
+        categories_obj = models.CategoriesModel.objects.filter(
+            wrapper_folder=wrapper_folder).first() or models.CategoriesModel()
+        categories_obj.wrapper_folder = wrapper_folder
+        categories_obj.category_name = category_name
+        categories_obj.save()

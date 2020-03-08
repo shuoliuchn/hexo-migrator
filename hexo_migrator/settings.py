@@ -132,12 +132,13 @@ BLOG_BASE_DIR = os.path.join(BASE_DIR, 'main_logic', 'test')    # 博客原文�
 BLOG_GEN_DIR = os.path.join(BASE_DIR, 'main_logic', 'test')    # 生成的博客路径
 DEFAULT_OLD_DIR = os.path.join(BASE_DIR, 'main_logic', 'test2')    # 要导入的旧的已经生成好的博客路径
 
-# 需要忽略的文件或文件夹名
-FILE_IGNORE = []
+# 需要忽略的文件或文件夹名（暂不支持正则）
+FILE_IGNORE = ['.git', '.gitignore', '.idea', '.vscode']
 
 
 # 外层文件夹和分类对应字典
 CATEGORY_DICT = {
+    '': '首页',
     'bug-bible': 'Bug 宝典',
     'database': '数据库',
     'linux': 'Linux',
