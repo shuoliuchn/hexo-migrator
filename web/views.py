@@ -30,7 +30,8 @@ def logout(request):
 class Home(views.View):
     def get(self, request):
         blog_list = models.BlogModel.objects.filter(is_valid=True)
-        return render(request, 'home.html', {'blog_list': blog_list})
+        blog_del_list = models.BlogModel.objects.filter(is_valid=False)
+        return render(request, 'home.html', {'blog_list': blog_list, 'blog_del_list': blog_del_list})
 
 
 class BlogAddEditView(views.View):
@@ -47,6 +48,27 @@ class BlogAddEditView(views.View):
             return redirect('web:home')
         else:
             return render(request, 'blog_add_edit.html', {'form_obj': form_obj})
+
+
+def blog_del_view(request, pk=None):
+    blog_obj = models.BlogModel.objects.filter(pk=pk)
+    if blog_obj:
+        blog_obj.update(is_valid=False)
+    return redirect('web:home')
+
+
+def blog_permanent_del_view(request, pk=None):
+    blog_obj = models.BlogModel.objects.filter(pk=pk)
+    if blog_obj:
+        blog_obj.delete()
+    return redirect('web:home')
+
+
+def blog_restore_view(request, pk=None):
+    blog_obj = models.BlogModel.objects.filter(pk=pk)
+    if blog_obj:
+        blog_obj.update(is_valid=True)
+    return redirect('web:home')
 
 
 class BulkImportOld(views.View):
@@ -85,7 +107,14 @@ class CategoriesView(views.View):
     def get(self, request):
         categories_list = models.CategoriesModel.objects.filter(is_valid=True)
         tags_list = models.TagsModel.objects.filter(is_valid=True)
-        return render(request, 'categories_list.html', {'categories_list': categories_list, 'tags_list': tags_list})
+        categories_del_list = models.CategoriesModel.objects.filter(is_valid=False)
+        tags_del_list = models.TagsModel.objects.filter(is_valid=False)
+        return render(request, 'categories_list.html', {
+            'categories_list': categories_list,
+            'categories_del_list': categories_del_list,
+            'tags_list': tags_list,
+            'tags_del_list': tags_del_list,
+        })
 
 
 class CategoriesAddEditView(views.View):
@@ -104,6 +133,27 @@ class CategoriesAddEditView(views.View):
             return render(request, 'categories_add_edit.html', {'form_obj': form_obj})
 
 
+def categories_del_view(request, pk):
+    categories_obj = models.CategoriesModel.objects.filter(pk=pk)
+    if categories_obj:
+        categories_obj.update(is_valid=False)
+    return redirect('web:categories_list')
+
+
+def categories_permanent_del_view(request, pk):
+    categories_obj = models.CategoriesModel.objects.filter(pk=pk)
+    if categories_obj:
+        categories_obj.delete()
+    return redirect('web:categories_list')
+
+
+def categories_restore_view(request, pk):
+    categories_obj = models.CategoriesModel.objects.filter(pk=pk)
+    if categories_obj:
+        categories_obj.update(is_valid=True)
+    return redirect('web:categories_list')
+
+
 class TagsAddEditView(views.View):
     def get(self, request, pk=None):
         tags_obj = models.TagsModel.objects.filter(pk=pk).first()
@@ -120,4 +170,22 @@ class TagsAddEditView(views.View):
             return render(request, 'tags_add_edit.html', {'form_obj': form_obj})
 
 
+def tags_del_view(request, pk):
+    tags_obj = models.TagsModel.objects.filter(pk=pk)
+    if tags_obj:
+        tags_obj.update(is_valid=False)
+    return redirect('web:categories_list')
 
+
+def tags_permanent_del_view(request, pk):
+    tags_obj = models.TagsModel.objects.filter(pk=pk)
+    if tags_obj:
+        tags_obj.delete()
+    return redirect('web:categories_list')
+
+
+def tags_restore_view(request, pk):
+    tags_obj = models.TagsModel.objects.filter(pk=pk)
+    if tags_obj:
+        tags_obj.update(is_valid=True)
+    return redirect('web:categories_list')
