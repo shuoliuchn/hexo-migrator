@@ -10,7 +10,7 @@ TARGET_TEST_DIR = os.path.join(settings.BASE_DIR, 'main_logic', 'test2')
 
 CODE_BLOCK_RE = '```.+?\n```\n'    # 匹配时需要设置 DOTALL
 INLINE_CODE_BLOCK_RE = '`.+?`'
-TITLE_RE = '\n*#{1,2} .+?\n'
+TITLE_RE = '^\n*#{1,3} .+?\n'
 PARAGRAPH_RE = '\n#+ .+?\n'
 LINK_RE = '\\[.+?\\]\\(.*?\\.md[\\)#]'
 

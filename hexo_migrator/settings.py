@@ -129,14 +129,14 @@ STATIC_URL = '/static/'
 
 # Hexo Migrator 主逻辑中的相关配置
 BLOG_BASE_DIR = os.path.join(BASE_DIR, 'main_logic', 'test')    # 博客原文根路径
-BLOG_GEN_DIR = os.path.join(BASE_DIR, 'main_logic', 'test')    # 生成的博客路径
+BLOG_GEN_DIR = os.path.join(BASE_DIR, 'main_logic', 'test2')    # 生成的博客路径
 DEFAULT_OLD_DIR = os.path.join(BASE_DIR, 'main_logic', 'test2')    # 要导入的旧的已经生成好的博客路径
 
 # 需要忽略的文件或文件夹名（暂不支持正则）
 FILE_IGNORE = ['.git', '.gitignore', '.idea', '.vscode']
 
 
-# 外层文件夹和分类对应字典
+# 外层文件夹和分类对应字典，批量导入分类时会用到
 CATEGORY_DICT = {
     '': '首页',
     'bug-bible': 'Bug 宝典',
@@ -157,4 +157,29 @@ CATEGORY_DICT = {
 
 # 各种正则规则
 
-YAML_STR_RE = "---.+?---\n\n"    # 匹配时需要设置 DOTALL
+YAML_STR_RE = "^---\n.+?\n---\n\n"    # Front Matter 正则，匹配时需要设置 DOTALL
+TITLE_RE = '^#{1,3} .+?\n'    # 标题正则
+CODE_BLOCK_RE = '\n```.*?\n```\n'    # 代码块正则，匹配时需要设置 DOTALL
+TOC_RE_LIST = [    # 匹配 [TOC]
+    '\n[toc]\n',
+    '\n[Toc]\n',
+    '\n[tOc]\n',
+    '\n[toC]\n',
+    '\n[TOc]\n',
+    '\n[ToC]\n',
+    '\n[tOC]\n',
+    '\n[TOC]\n',
+]
+PARAGRAPH_RE = '\n#+ .+?\n'
+BRACE_RE_LIST_NORMAL = ['{{', '}}', '{#', '#}']
+BRACE_RE_LIST_STRANGE = '{%.*?%}'    # 因为要使用 {% raw %} 转义括号，所以处理 {% %} 要稍麻烦一些，稍有不慎可能无限递归
+BRACE_RE_STRANGE_LEFT = '{%'
+BRACE_RE_STRANGE_RIGHT = '%}'
+BRACE_RE_SAFE = '{% raw %}.*?{% endraw %}'
+
+IMG_RE_LIST = [
+    {'tag': '!\\[.+?\\]\\(.+?[.]assets.+?\\..+?\\)', 'file_name': '!\\[.+?\\]\\(.+?[.]assets.(.+?\\..+?)\\)'},
+    {'tag': '<img src = .+?\\.assets.+?\\..+?>', 'file_name': '<img src = .+?\\.assets.(.+?\\..+?).>'},
+]
+
+LINK_RE = '\\[.+?\\]\\(.*?\\.md[\\)#]'

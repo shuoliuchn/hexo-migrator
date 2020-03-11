@@ -24,5 +24,6 @@ urlpatterns = [
     re_path('tags/permanent/del/(?P<pk>\d+)/', views.tags_permanent_del_view, name='tags_permanent_del'),
     re_path('tags/restore/(?P<pk>\d+)/', views.tags_restore_view, name='tags_restore'),
     path('import/old/', views.BulkImportOld.as_view(), name='bulk_import_old'),
+    path('import/original/', views.BulkImportOriginal.as_view(), name='bulk_import_original'),
     path('categories/bulk/create', views.categories_bulk_create, name='categories_bulk_create'),
 ]

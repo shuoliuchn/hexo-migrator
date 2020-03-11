@@ -7,13 +7,27 @@
 
 内容
 
-
+[TOC]
 
 连接：
 
  [test](test.md)  [test3](test3.md)  [test4](test4) 
 
  [test2](test2.mid)  [test0](..\test0.md) 
+
+
+
+lsls[toc]sdfsd
+
+`{{ }}`
+
+{%%}
+
+{##}
+
+{{ }}    {%{#%}#}
+
+{%{{}}%}
 
 
 
@@ -28,6 +42,7 @@
 
 ```python
 决定是否拉萨酱豆腐
+[TOC]
 <img src = "python-installation.assets\py_setup_01.png">
 ![]()
 ```

@@ -86,7 +86,7 @@ class FileHandler:
             abs_dir = os.path.abspath(os.path.join(file_dir, rel_dir))
             # project_rel_dir = os.path.relpath(abs_dir, project_path)
             # new_link = link
-            url_link = abs_dir.replace(project_path, '').replace('\\', '/')[:-3]
+            url_link = abs_dir.replace(project_path, '').replace(os.path.sep, '/')[:-3]    # 把第一个replace换成相对路径
             new_link = link.replace(rel_dir, url_link)
             # for md_file in md_file_list:
             #     if md_file.endswith(project_rel_dir):

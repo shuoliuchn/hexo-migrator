@@ -85,17 +85,52 @@ class BulkImportOld(views.View):
         if form_obj.is_valid():
             old_blog_path = request.POST.get('old_blog_path') or settings.DEFAULT_OLD_DIR
             target_blog_path = request.POST.get('target_blog_path') or settings.BLOG_GEN_DIR
+            # 获取所有的 md 文件及从路径中提取到的信息
             file_list = []
             path_handler = PathHandler.PathHandler()
             path_handler.get_md_files(old_blog_path, file_list)
             file_detail_list = path_handler.get_file_detail(file_list, old_blog_path)
+            # 对文件进行处理，分析 front-matter 中的信息，存储各种信息到数据库
             old_blog_handler = FileHandler.OldFileHandlser()
             old_blog_handler.old_file_db_dump(file_detail_list)
+            # 转移图片
             FileHandler.img_migration(file_detail_list, target_blog_path)
-            return redirect('web:bulk_import_old')
+            # return redirect('web:bulk_import_old')
+            return redirect('web:home')
+        else:
+            return render(request, 'import_old.html', {'form_obj': form_obj})
+
+
+class BulkImportOriginal(views.View):
+    def get(self, request):
+        data = {
+            'old_blog_path': request.POST.get('old_blog_path') or settings.BLOG_BASE_DIR,
+            'target_blog_path': request.POST.get('target_blog_path') or settings.BLOG_GEN_DIR
+        }
+        form_obj = myforms.ImportOldForm(data=data)
+        return render(request, 'import_origin.html', {'form_obj': form_obj})
+
+    def post(self, request):
+        form_obj = myforms.ImportOldForm(request.POST)
+        if form_obj.is_valid():
+            blog_base_dir = request.POST.get('old_blog_path') or settings.DEFAULT_OLD_DIR
+            blog_gen_dir = request.POST.get('target_blog_path') or settings.BLOG_GEN_DIR
+            # 获取所有的 md 文件及从路径中提取到的信息
+            file_list = []
+            path_handler = PathHandler.PathHandler()
+            path_handler.get_md_files(blog_base_dir, file_list)    # 找到 md 文件
+            file_detail_list = path_handler.get_file_detail(file_list, blog_base_dir, '.assets')
+            # 文件批量处理
+            file_handler = FileHandler.OriginalFileHandler()
+            file_handler.bulk_import_original(file_detail_list)
+
+            # 转移图片
+            FileHandler.img_migration(file_detail_list, blog_gen_dir, '.assets')
+            return redirect('web:bulk_import_original')
             # return redirect('web:home')
         else:
             return render(request, 'import_old.html', {'form_obj': form_obj})
+
 
 
 def categories_bulk_create(request):
