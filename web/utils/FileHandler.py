@@ -8,6 +8,21 @@ from . import DBHandler
 from .. import models
 
 
+def word_count():
+    count = {'char': 0, 'hans': 0}
+    blog_list = models.BlogModel.objects.filter(is_valid=True)
+    for blog in blog_list:
+        content = blog.content
+        count['char'] += len(content)
+        hans_total = 0
+        for char in content:
+            # 中文字符其实还有很多，但几乎都用不到，这个范围已经足够了
+            if '\u4e00' <= char <= '\u9fef':
+                hans_total += 1
+        count['hans'] += hans_total
+    return count
+
+
 def img_migration(file_detail_list, blog_gen_dir=settings.BLOG_GEN_DIR, assets_suffix=''):
     for file_dict in file_detail_list:
         img_path = file_dict.get('img_path')
