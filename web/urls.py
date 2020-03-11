@@ -25,5 +25,6 @@ urlpatterns = [
     re_path('tags/restore/(?P<pk>\d+)/', views.tags_restore_view, name='tags_restore'),
     path('import/old/', views.BulkImportOld.as_view(), name='bulk_import_old'),
     path('import/original/', views.BulkImportOriginal.as_view(), name='bulk_import_original'),
+    path('bulk/hexo/generate/', views.bulk_hexo_generate, name='bulk_hexo_generate'),
     path('categories/bulk/create', views.categories_bulk_create, name='categories_bulk_create'),
 ]

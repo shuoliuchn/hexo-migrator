@@ -214,13 +214,13 @@ class OriginalFileHandler:
 
     def bulk_import_original(self, file_detail_list: list):
         for file_dict in file_detail_list:
-            # {
-            # 'file_full_path': 'C:\\Users\\Sure\\PyProject\\神器\\hexo_migrator\\main_logic\\test\\linux\\test.md',
-            #  'file_rel_path': 'linux\\test.md',
-            #  'file_name': 'test.md',
-            #  'file_title': 'test',
-            #  'wrapper_folder': 'linux',
-            #  'img_path': 'C:\\Users\\Sure\\PyProject\\神器\\hexo_migrator\\main_logic\\test\\linux\\test',
-            #  'img_rel_path': 'linux\\test'
-            #  }
             self.single_import_original(file_dict)
+
+
+class HexoFileHandler:
+    def hexo_generate(self, blog_obj):
+        pass
+
+    def bulk_hexo_generate(self, blog_obj_list):
+        for blog_obj in blog_obj_list:
+            self.hexo_generate(blog_obj)

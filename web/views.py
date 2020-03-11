@@ -123,14 +123,37 @@ class BulkImportOriginal(views.View):
             # 文件批量处理
             file_handler = FileHandler.OriginalFileHandler()
             file_handler.bulk_import_original(file_detail_list)
-
             # 转移图片
             FileHandler.img_migration(file_detail_list, blog_gen_dir, '.assets')
-            return redirect('web:bulk_import_original')
-            # return redirect('web:home')
+            # return redirect('web:bulk_import_original')
+            return redirect('web:home')
         else:
             return render(request, 'import_old.html', {'form_obj': form_obj})
 
+
+# def hexo_generate(request, pk):
+#     try:
+#         blog_obj = models.BlogModel.objects.get(pk=pk)
+#     except models.BlogModel.DoesNotExist:
+#         pass
+#     return redirect('web:home')
+
+
+def bulk_hexo_generate(request):
+    """
+    批量创建 Hexo 博客文件，或许未来可以增加指定文件生成，但真心觉得没这个必要，先不做了
+    :param request:
+    :return:
+    """
+    if request.method == 'GET':
+        data = {
+            'target_blog_path': request.POST.get('target_blog_path') or settings.BLOG_GEN_DIR
+        }
+        form_obj = myforms.ImportOldForm(data=data)
+        return render(request, 'hexo_generate.html', {'form_obj': form_obj})
+    blog_obj = models.BlogModel.objects.filter(is_valid=True)
+    print(request.POST.get('target_blog_path'))
+    return redirect('web:home')
 
 
 def categories_bulk_create(request):
