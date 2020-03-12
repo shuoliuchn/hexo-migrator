@@ -18,10 +18,18 @@ class BlogModel(models.Model):
     description = models.CharField(max_length=1000, verbose_name='博客描述', null=True, blank=True)
     content = models.TextField(max_length=50000, verbose_name='博客内容', null=True, blank=True)
 
+    @property
     def show_tags(self):
-        tags_list = self.tags.filter(is_valid=True)
-        tags = '，'.join([str(tag) for tag in tags_list])
+        tags = '，'.join(self.tag_list)
         return tags
+
+    @property
+    def tag_list(self):
+        return [tag.tag_name for tag in self.tags.filter(is_valid=True)]
+
+    @property
+    def categories_name(self):
+        return self.categories.category_name
 
     def __str__(self):
         return self.title

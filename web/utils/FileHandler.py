@@ -34,7 +34,7 @@ def img_migration(file_detail_list, blog_gen_dir=settings.BLOG_GEN_DIR, assets_s
                 target_file_path = os.path.join(blog_gen_dir, file_rel_path.replace(assets_suffix, ''), file)
                 target_file_dir = os.path.dirname(target_file_path)
                 if os.path.isfile(target_file_path):
-                    # 如果目标路径有同名文件，默认跳过
+                    # 如果目标路径有同名文件，默认跳过，而不是覆盖，也没有提示，因为没必要，这种情况几乎遇不到，遇到再说
                     continue
                 elif not os.path.isdir(target_file_dir):
                     os.makedirs(target_file_dir)
@@ -187,7 +187,6 @@ class OriginalFileHandler:
         :param file_dict: 文件信息字典
         :return: 不需要返回
         """
-        print(file_dict.get('wrapper_folder'))
         try:
             categories = models.CategoriesModel.objects.get(
                 wrapper_folder=file_dict.get('wrapper_folder'))
@@ -233,9 +232,37 @@ class OriginalFileHandler:
 
 
 class HexoFileHandler:
-    def hexo_generate(self, blog_obj):
-        pass
+    def hexo_generate(self, blog_obj, blog_gen_dir=settings.BLOG_GEN_DIR):
+        data_dict = {
+            'title': blog_obj.title,
+            'categories': blog_obj.categories_name,
+            'tags': blog_obj.tag_list,
+            'layout': blog_obj.layout,
+            'description': blog_obj.description,
+            'date': blog_obj.date,
+            'update': blog_obj.update,
+            'mathjax': blog_obj.is_mathjax,
+            'comments': blog_obj.allow_comments,
+            'top': blog_obj.is_top,
+            'toc': blog_obj.is_toc,
+        }
+        yaml_str = yaml.dump(data_dict, default_flow_style=False, encoding='utf-8', allow_unicode=True).decode('utf8')
+        front_matter = f'---\n{yaml_str}---\n'
+        content = f'\n{blog_obj.content.strip()}\n'
+        blog_str = front_matter + content
+        blog_path = os.path.join(blog_gen_dir, blog_obj.path)
+        if os.path.isdir((os.path.dirname(blog_path))):
+            if os.path.isfile(blog_path):
+                with open(blog_path, 'r', encoding='utf8') as fh:
+                    old_blog = fh.read()
+                if blog_str == old_blog:
+                    return
+        else:
+            os.mkdir(os.path.dirname(blog_path))
+        with open(blog_path, 'w', encoding='utf8') as fh:
+            fh.write(blog_str)
 
-    def bulk_hexo_generate(self, blog_obj_list):
+    def bulk_hexo_generate(self, blog_obj_list, blog_gen_dir=settings.BLOG_GEN_DIR):
         for blog_obj in blog_obj_list:
-            self.hexo_generate(blog_obj)
+            self.hexo_generate(blog_obj, blog_gen_dir)
+            break

@@ -152,9 +152,12 @@ def bulk_hexo_generate(request):
         }
         form_obj = myforms.ImportOldForm(data=data)
         return render(request, 'hexo_generate.html', {'form_obj': form_obj})
+    blog_gen_dir = request.POST.get('target_blog_path')
     blog_obj = models.BlogModel.objects.filter(is_valid=True)
-    print(request.POST.get('target_blog_path'))
-    return redirect('web:home')
+    hexo_file_handler = FileHandler.HexoFileHandler()
+    hexo_file_handler.bulk_hexo_generate(blog_obj, blog_gen_dir)
+    return redirect('web:bulk_hexo_generate')
+    # return redirect('web:home')
 
 
 def categories_bulk_create(request):

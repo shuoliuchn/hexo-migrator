@@ -114,3 +114,5 @@
 #     return 123
 #
 # print(issubclass(func, object))
+# s = '\nsjsjsjsjsjsjsjs\n'
+# print(repr(s[2: -2]))
