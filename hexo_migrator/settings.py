@@ -125,7 +125,8 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/hexostatic/'
+STATIC_ROOT = '/tmp/hexo_static'
 
 # Hexo Migrator 主逻辑中的相关配置
 # BLOG_BASE_DIR = os.path.join(BASE_DIR, 'main_logic', 'test')    # 博客原文根路径
