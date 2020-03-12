@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        博客总数：<strong>{{ blog_list.count }}</strong>
+        字符总数：<strong>{{ count.char }}</strong>
+        汉字总数：<strong>{{ count.hans }}</strong>
+    </div>
+    <a href="{% url 'web:blog_add' %}" class="btn btn-success">新建博客</a>
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th class="text-center">博客标题</th>
+            <th class="text-center">博客相对路径</th>
+            <th class="text-center">博客分类</th>
+            <th class="text-center">博客标签</th>
+            <th class="text-center">有无描述</th>
+            <th class="text-center">操作</th>
+        </tr>
+        </thead>
+        <tbody class="text-center">
+        {% for blog in blog_list %}
+            <tr>
+                <td>{{ blog.title }}</td>
+                <td>{{ blog.path }}</td>
+                <td>{{ blog.categories }}</td>
+                <td>{{ blog.show_tags }}</td>
+                {% if blog.description %}
+                    <td title="{{ blog.description }}" class="success">有</td>
+                    {% else %}
+                    <td class="danger">无</td>
+                {% endif %}
+                <td>
+                    <a href="{% url 'web:blog_edit' blog.pk %}" class="btn btn-info btn-xs" title="编辑">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </a>
+                    <a href="{% url 'web:blog_del' blog.pk %}" class="btn btn-danger btn-xs" title="删除">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    <hr>
+    <h3 class="text-center">下面是已经删除了的博客</h3>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>博客标题</th>
+            <th>博客相对路径</th>
+            <th>博客分类</th>
+            <th>博客标签</th>
+            <th>更新日期</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for blog in blog_del_list %}
+            <tr>
+                <td>{{ blog.title }}</td>
+                <td>{{ blog.path }}</td>
+                <td>{{ blog.categories }}</td>
+                <td>{{ blog.show_tags }}</td>
+                <td>{{ blog.update }}</td>
+                <td>
+                    <a href="{% url 'web:blog_restore' blog.pk %}" class="btn btn-success btn-xs" title="恢复">
+                        <i class="glyphicon glyphicon-refresh"></i>
+                    </a>
+                    <a href="{% url 'web:blog_permanent_del' blog.pk %}" class="btn btn-danger btn-xs" title="彻底删除">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}

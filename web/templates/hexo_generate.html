@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h2 class="text-center">批量生成 Hexo 博客文件</h2>
+            <form class="form-horizontal" novalidate method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <span style="color: red">{{ form_obj.target_blog_path.errors.0 }}</span>
+                    <label for="{{ form_obj.target_blog_path.id_for_label }}" class="col-sm-2 control-label">
+                        {{ form_obj.target_blog_path.label }}
+                    </label>
+                    <div class="col-sm-10">
+                        {{ form_obj.target_blog_path }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">批量导入</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

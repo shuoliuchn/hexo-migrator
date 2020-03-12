@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+            <a href="{% url 'web:categories_add' %}" class="btn btn-success">新建分类</a>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>外层文件夹名</th>
+                    <th>分类名称</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for categories in categories_list %}
+                    <tr>
+                        <td>{{ categories.wrapper_folder }}</td>
+                        <td>{{ categories.category_name }}</td>
+                        <td>
+                            <a href="{% url 'web:categories_edit' categories.pk %}" class="btn btn-info btn-xs" title="修改">
+                                <i class="glyphicon glyphicon-edit"></i>
+                            </a>
+                            <a href="{% url 'web:categories_del' categories.pk %}" class="btn btn-info btn-xs" title="删除">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4 col-md-offset-4">
+            <a href="{% url 'web:tags_add' %}" class="btn btn-success">新建标签</a>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>标签名称</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for tags in tags_list %}
+                    <tr>
+                    <td>{{ tags.tag_name }}</td>
+                    <td>
+                        <a href="{% url 'web:tags_edit' tags.pk %}" class="btn btn-info btn-xs" title="修改">
+                            <i class="glyphicon glyphicon-edit"></i>
+                        </a>
+                        <a href="{% url 'web:tags_del' tags.pk %}" class="btn btn-info btn-xs" title="删除">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </a>
+                    </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr>
+    <h3 class="text-center">下面的是已经删除了的分类和标签</h3>
+    <div class="row">
+        <div class="col-md-4">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>外层文件夹名</th>
+                    <th>分类名称</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for categories in categories_del_list %}
+                    <tr>
+                        <td>{{ categories.wrapper_folder }}</td>
+                        <td>{{ categories.category_name }}</td>
+                        <td>
+                            <a href="{% url 'web:categories_restore' categories.pk %}" class="btn btn-success btn-xs" title="恢复">
+                                <i class="glyphicon glyphicon-repeat"></i>
+                            </a>
+                            <a href="{% url 'web:categories_permanent_del' categories.pk %}"
+                               class="btn btn-danger btn-xs" title="彻底删除">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4 col-md-offset-4">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>标签名称</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for tags in tags_del_list %}
+                    <tr>
+                    <td>{{ tags.tag_name }}</td>
+                    <td>
+                        <a href="{% url 'web:tags_restore' tags.pk %}" class="btn btn-success btn-xs" title="恢复">
+                            <i class="glyphicon glyphicon-repeat"></i>
+                        </a>
+                        <a href="{% url 'web:tags_permanent_del' tags.pk %}" class="btn btn-danger btn-xs" title="彻底删除">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </a>
+                    </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
