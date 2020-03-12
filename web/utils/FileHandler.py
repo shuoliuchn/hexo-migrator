@@ -222,7 +222,9 @@ class OriginalFileHandler:
         file_data_dict['content'] = content
         blog_obj = models.BlogModel.objects.filter(path=file_data_dict.get('path'))
         if blog_obj:
-            blog_obj.update(**file_data_dict)
+            # 如果博客存在，只会修改标题和博客内容，其他博客信息保持不变
+            blog_obj.update(title=file_data_dict['title'], content=content)
+            # blog_obj.update(**file_data_dict)
         else:
             models.BlogModel.objects.create(**file_data_dict)
 
@@ -258,11 +260,10 @@ class HexoFileHandler:
                 if blog_str == old_blog:
                     return
         else:
-            os.mkdir(os.path.dirname(blog_path))
+            os.makedirs(os.path.dirname(blog_path))
         with open(blog_path, 'w', encoding='utf8') as fh:
             fh.write(blog_str)
 
     def bulk_hexo_generate(self, blog_obj_list, blog_gen_dir=settings.BLOG_GEN_DIR):
         for blog_obj in blog_obj_list:
             self.hexo_generate(blog_obj, blog_gen_dir)
-            break

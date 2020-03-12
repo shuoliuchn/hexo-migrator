@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '@(smtcxz*u+_6a=$lxusc=#mq40)l$j*kdj412+r%@@ko#6a$-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -128,9 +128,15 @@ USE_TZ = False
 STATIC_URL = '/static/'
 
 # Hexo Migrator 主逻辑中的相关配置
-BLOG_BASE_DIR = os.path.join(BASE_DIR, 'main_logic', 'test')    # 博客原文根路径
-BLOG_GEN_DIR = os.path.join(BASE_DIR, 'main_logic', 'test2')    # 生成的博客路径
-DEFAULT_OLD_DIR = os.path.join(BASE_DIR, 'main_logic', 'test2')    # 要导入的旧的已经生成好的博客路径
+# BLOG_BASE_DIR = os.path.join(BASE_DIR, 'main_logic', 'test')    # 博客原文根路径
+# BLOG_GEN_DIR = os.path.join(BASE_DIR, 'main_logic', 'test2')    # 生成的博客路径
+# DEFAULT_OLD_DIR = os.path.join(BASE_DIR, 'main_logic', 'test2')    # 要导入的
+# BLOG_BASE_DIR = r'C:\Users\Sure\PyProject\神器\技术查阅手册'    # 博客原文根路径
+# BLOG_GEN_DIR = r'C:\Users\Sure\PyProject\神器\技术查阅手册3'    # 生成的博客路径
+# DEFAULT_OLD_DIR = r'C:\Users\Sure\PyProject\神器\技术查阅手册3'    # 要导入的旧的已经生成好的博客路径
+BLOG_BASE_DIR = r'/data/PyProject/神器/技术查阅手册'    # 博客原文根路径
+BLOG_GEN_DIR = r'/tmp/hexo/source/_posts'    # 生成的博客路径
+DEFAULT_OLD_DIR = r'/data/blog'    # 要导入的旧的已经生成好的博客路径
 
 # 需要忽略的文件或文件夹名（暂不支持正则）
 FILE_IGNORE = ['.git', '.gitignore', '.idea', '.vscode']

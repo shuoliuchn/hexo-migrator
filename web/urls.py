@@ -18,6 +18,7 @@ urlpatterns = [
     re_path('categories/del/(?P<pk>\d+)/', views.categories_del_view, name='categories_del'),
     re_path('categories/permanent/del/(?P<pk>\d+)/', views.categories_permanent_del_view, name='categories_permanent_del'),
     re_path('categories/restore/(?P<pk>\d+)/', views.categories_restore_view, name='categories_restore'),
+    path('categories/bulk/create', views.categories_bulk_create, name='categories_bulk_create'),
     path('tags/add/', views.TagsAddEditView.as_view(), name='tags_add'),
     re_path('tags/edit/(?P<pk>\d+)/', views.TagsAddEditView.as_view(), name='tags_edit'),
     re_path('tags/del/(?P<pk>\d+)/', views.tags_del_view, name='tags_del'),
@@ -26,5 +27,5 @@ urlpatterns = [
     path('import/old/', views.BulkImportOld.as_view(), name='bulk_import_old'),
     path('import/original/', views.BulkImportOriginal.as_view(), name='bulk_import_original'),
     path('bulk/hexo/generate/', views.bulk_hexo_generate, name='bulk_hexo_generate'),
-    path('categories/bulk/create', views.categories_bulk_create, name='categories_bulk_create'),
+    path('one/click/', views.one_click, name='one_click'),
 ]

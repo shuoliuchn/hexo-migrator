@@ -29,7 +29,7 @@ class BlogModel(models.Model):
 
     @property
     def categories_name(self):
-        return self.categories.category_name
+        return self.categories.category_name if self.categories else ''
 
     def __str__(self):
         return self.title

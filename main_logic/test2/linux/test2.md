@@ -1,45 +1,22 @@
 ---
 categories: Linux
 comments: true
-date: 2020-03-11 18:06:28.394126
-description: 一篇很厉害的博客
+date: 2020-03-11 18:06:28.407118
+description: null
 layout: single-column
 mathjax: false
-tags:
-- Python
-- 脚本
+tags: []
 title: '一级标题  # 啦啦啦'
 toc: true
 top: false
-update: 2020-03-12 16:13:30.663158
+update: 2020-03-11 18:06:28.407118
 ---
 
 内容
 
-## 二级标题
+二级标
 
 内容
-
-
-连接：
-
- [test](/linux/test)  [test3](/linux/test3)  [test4](test4) 
-
- [test2](test2.mid)  [test0](/test0) 
-
-
-
-lsls[toc]sdfsd
-
-`{% raw %}{{{% endraw %} {% raw %}}}{% endraw %}`
-
-{% raw %}{%%}{% endraw %}
-
-{% raw %}{#{% endraw %}{% raw %}#}{% endraw %}
-
-{% raw %}{{{% endraw %} {% raw %}}}{% endraw %}    {% raw %}{%{#%}{% endraw %}{% raw %}#}{% endraw %}
-
-{% raw %}{%{{}}%}{% endraw %}
 
 
 
@@ -54,7 +31,6 @@ lsls[toc]sdfsd
 
 ```python
 决定是否拉萨酱豆腐
-[TOC]
 <img src = "python-installation.assets\py_setup_01.png">
 ![]()
 ```

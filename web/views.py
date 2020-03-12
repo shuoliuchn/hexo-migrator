@@ -1,12 +1,10 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, redirect
 from django import views
 from django.contrib.auth.backends import ModelBackend
 from django.conf import settings
 
 from . import myforms, models
 from web.utils import PathHandler, FileHandler, DBHandler
-
-# Create your views here.
 
 
 class Login(views.View, ModelBackend):
@@ -30,7 +28,7 @@ def logout(request):
 class Home(views.View):
     def get(self, request):
         count = FileHandler.word_count()
-        blog_list = models.BlogModel.objects.filter(is_valid=True)
+        blog_list = models.BlogModel.objects.filter(is_valid=True).order_by('update')
         blog_del_list = models.BlogModel.objects.filter(is_valid=False)
         return render(request, 'home.html', {'blog_list': blog_list, 'blog_del_list': blog_del_list, 'count': count})
 
@@ -156,8 +154,25 @@ def bulk_hexo_generate(request):
     blog_obj = models.BlogModel.objects.filter(is_valid=True)
     hexo_file_handler = FileHandler.HexoFileHandler()
     hexo_file_handler.bulk_hexo_generate(blog_obj, blog_gen_dir)
-    return redirect('web:bulk_hexo_generate')
-    # return redirect('web:home')
+    # return redirect('web:bulk_hexo_generate')
+    return redirect('web:home')
+
+
+def one_click(request):
+    # 把新写的博客放到数据库
+    file_list = []
+    path_handler = PathHandler.PathHandler()
+    path_handler.get_md_files(settings.BLOG_BASE_DIR, file_list)  # 找到 md 文件
+    file_detail_list = path_handler.get_file_detail(file_list, settings.BLOG_BASE_DIR, '.assets')
+    file_handler = FileHandler.OriginalFileHandler()
+    file_handler.bulk_import_original(file_detail_list)
+    # 转移图片
+    FileHandler.img_migration(file_detail_list, settings.BLOG_GEN_DIR, '.assets')
+    # 生成 Hexo 博客
+    blog_obj = models.BlogModel.objects.filter(is_valid=True)
+    hexo_file_handler = FileHandler.HexoFileHandler()
+    hexo_file_handler.bulk_hexo_generate(blog_obj, settings.BLOG_GEN_DIR)
+    return redirect('web:home')
 
 
 def categories_bulk_create(request):
