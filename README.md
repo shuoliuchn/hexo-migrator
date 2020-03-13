@@ -162,3 +162,27 @@ DEFAULT_OLD_DIR = r'/data/blog'    # 要导入的旧的已经生成好的博客�
 
 ![1584077369778](README.assets/1584077369778.png)
 
+`原博客路径` 默认为 `settings.py` 中的 BLOG_BASE_DIR，`目标路径` 默认为 `settings.py` 中的 BLOG_GEN_DIR。可以通过修改这两个配置，减少后续操作步骤：
+
+```python
+BLOG_BASE_DIR = r'/data/PyProject/神器/技术查阅手册'    # 博客原文根路径
+BLOG_GEN_DIR = r'/tmp/hexo/source/_posts'    # 生成的博客路径
+```
+
+#### 批量生成 Hexo 博客文件
+
+将数据库中的内容导出为 Hexo 友好型的 md 博客文件，即：Front Matter 中写明了博客的各种信息，内容中的静态文件和链接都是按照规则书写，特殊含义的花括号被转义，等等。
+
+点击 `批量生成 Hexo 博客文件`：
+
+![1584081717758](README.assets/1584081717758.png)
+
+
+
+#### 一键操作
+
+一键操作就是按照 `settings.py` 中的路径，一键实现 `博客原文导入` 和 `批量生成 Hexo 博客文件` 两个功能。在首页点击 `一键操作` 即可实现。
+
+
+
+![1584078958791](README.assets/1584078958791.png)
