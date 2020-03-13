@@ -79,12 +79,12 @@ WSGI_APPLICATION = 'hexo_migrator.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hexo',
-        'HOST': '127.0.0.1',
-        'PORT': 3306,
-        'USER': 'root',
-        'PASSWORD': '123'
+        'ENGINE': 'django.db.backends.mysql',    # 使用 MySQL 数据库
+        'NAME': 'hexo',    # 数据库名
+        'HOST': '127.0.0.1',    # 数据库 IP
+        'PORT': 3306,    # 数据库端口
+        'USER': 'root',   # 登录数据库使用的用户名
+        'PASSWORD': '123'    # 登录数据库使用的密码
     }
 }
 

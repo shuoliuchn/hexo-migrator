@@ -222,8 +222,13 @@ class OriginalFileHandler:
         file_data_dict['content'] = content
         blog_obj = models.BlogModel.objects.filter(path=file_data_dict.get('path'))
         if blog_obj:
-            # 如果博客存在，只会修改标题和博客内容，其他博客信息保持不变
-            blog_obj.update(title=file_data_dict['title'], content=content)
+            # 如果博客存在，只会修改标题和博客内容，其他博客信息保持不变，且仅当标题或内容有修改的时候才会改动。
+            old_title = blog_obj.first().title
+            old_content = blog_obj.first().content
+            if old_content == content and old_title == file_data_dict['title']:
+                pass
+            else:
+                blog_obj.update(title=file_data_dict['title'], content=content)
             # blog_obj.update(**file_data_dict)
         else:
             models.BlogModel.objects.create(**file_data_dict)
