@@ -28,7 +28,7 @@ def logout(request):
 class Home(views.View):
     def get(self, request):
         count = FileHandler.word_count()
-        blog_list = models.BlogModel.objects.filter(is_valid=True).order_by('update')
+        blog_list = models.BlogModel.objects.filter(is_valid=True).order_by('-update', '-id')
         blog_del_list = models.BlogModel.objects.filter(is_valid=False)
         return render(request, 'home.html', {'blog_list': blog_list, 'blog_del_list': blog_del_list, 'count': count})
 
