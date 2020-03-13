@@ -16,7 +16,7 @@ class BlogModel(models.Model):
     date = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     update = models.DateTimeField(auto_now=True, verbose_name='更新时间')
     description = models.CharField(max_length=1000, verbose_name='博客描述', null=True, blank=True)
-    content = models.TextField(max_length=50000, verbose_name='博客内容', null=True, blank=True)
+    content = models.TextField(verbose_name='博客内容', null=True, blank=True)
 
     @property
     def show_tags(self):

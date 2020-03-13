@@ -42,7 +42,7 @@ class BlogAddEditView(views.View):
     def post(self, request, pk=None):
         blog_obj = models.BlogModel.objects.filter(pk=pk).first()
         form_obj = myforms.BlogModelForm(request.POST, instance=blog_obj)
-        if form_obj.is_valid():
+        if form_obj.is_valid:
             form_obj.save()
             return redirect('web:home')
         else:
