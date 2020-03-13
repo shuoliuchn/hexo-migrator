@@ -2,6 +2,8 @@
 
 个人博客：https://sliu.vip
 
+[开发文档](docs\开发文档.md) 
+
 我的博客就是用这个工具，使用 Typera 写完之后，迁移成为 Hexo 友好型的博客。可以自动生成 Front Matter 头部，自动转换图片和站内链接。
 
 ## 项目背景
@@ -18,11 +20,9 @@
 
 ### 项目下载
 
+```bash
+git clone https://gitee.com/shuoliuchn/hexo-migrator.git
 ```
-git clone 
-```
-
-
 
 ### 安装依赖
 
@@ -177,11 +177,25 @@ BLOG_GEN_DIR = r'/tmp/hexo/source/_posts'    # 生成的博客路径
 
 ![1584081717758](README.assets/1584081717758.png)
 
+点击 `批量生成`，即可将数据库中的博客内容导出成为 Hexo 友好型的 md 博客文件：
 
+![1584082575897](README.assets/1584082575897.png)
+
+同样地，默认的目标路径是 `settings.py` 中的 BLOG_GEN_DIR，可以通过配置 `setting.py` 中对应的内容，简化日后的操作：
+
+```python
+BLOG_GEN_DIR = r'/tmp/hexo/source/_posts'    # 生成的博客路径
+```
 
 #### 一键操作
 
-一键操作就是按照 `settings.py` 中的路径，一键实现 `博客原文导入` 和 `批量生成 Hexo 博客文件` 两个功能。在首页点击 `一键操作` 即可实现。
+一键操作就是按照 `settings.py` 中的路径，一键实现 `博客原文导入` 和 `批量生成 Hexo 博客文件` 两个功能。在首页点击 `一键操作` 即可实现：
+
+
+
+特别强调，一定要把 settings.py 中的相关配置修改为你自己博客的配置。
+
+
 
 
 
