@@ -11,7 +11,7 @@ class BlogModel(models.Model):
     is_mathjax = models.BooleanField(default=False, verbose_name='是否启用 mathjax 数学公式')
     allow_comments = models.BooleanField(default=True, verbose_name='是否允许评论')
     is_top = models.BooleanField(default=False, verbose_name='是否首页置顶（需配合 hexo-generator-index-pin-top 使用）')
-    layout = models.CharField(max_length=100, default='single-column', verbose_name='输出模式（Next 模板无需设置）')
+    layout = models.CharField(max_length=100, default='single-column', verbose_name='输出模式（Next 模板无需设置）', null=True, blank=True)
     is_toc = models.BooleanField(default=True, verbose_name='是否展示目录（Next 模板无需设置）')
     date = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     update = models.DateTimeField(auto_now=True, verbose_name='更新时间')
