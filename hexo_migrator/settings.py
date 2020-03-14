@@ -211,3 +211,5 @@ CMD_LIST = [
     HEXO_ABS_PATH,
     'algolia',
 ]
+
+CMD_STR = 'hexo clean && hexo g -d'
