@@ -202,14 +202,17 @@ CMD_LIST = [
     'clean',
     '&&',
     HEXO_ABS_PATH,
+    '--cwd',
+    HEXO_BASE_DIR,
     'generate',
-    # '-d',
+    '-d',
     '&&',
     'export',
     f'HEXO_ALGOLIA_INDEXING_KEY={HEXO_ALGOLIA_INDEXING_KEY}',
     '&&',
     HEXO_ABS_PATH,
+    '--cwd',
+    HEXO_BASE_DIR,
     'algolia',
 ]
 
-CMD_STR = 'hexo clean && hexo g -d'

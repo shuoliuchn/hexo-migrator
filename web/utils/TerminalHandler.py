@@ -5,8 +5,7 @@ from django.conf import settings
 
 def hexo_build():
     ret = subprocess.run(
-        # ' '.join(settings.CMD_LIST),
-        settings.CMD_STR,
+        ' '.join(settings.CMD_LIST),
         shell=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
