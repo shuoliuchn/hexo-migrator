@@ -10,6 +10,7 @@
     </div>
     <a href="{% url 'web:blog_add' %}" class="btn btn-info">新建博客</a>
     <a href="{% url 'web:one_click' %}" class="btn btn-success">一键操作</a>
+    <button class="btn btn-warning" id="hexo_build">Hexo 部署生成</button>
     <table class="table table-hover table-bordered">
         <thead>
         <tr>
@@ -78,4 +79,25 @@
 
         </tbody>
     </table>
+{% endblock %}
+
+{% block js %}
+    <script>
+    $(function(){
+        $("#hexo_build").on("click",function(){
+            $.ajax({
+                // 后端程序的url地址
+                url: '{% url "web:hexo_build" %}',
+                // 也可以使用method，提交数据的方式，默认是'GET'，常用的还有'POST'
+                type: 'get',
+            })
+            .done(function(resp) {     // 请求成功以后的操作
+                console.log(resp);
+            })
+            .fail(function(error) {    // 请求失败以后的操作
+                console.log(error);
+            });
+        });
+    })
+    </script>
 {% endblock %}

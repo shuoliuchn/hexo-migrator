@@ -190,3 +190,24 @@ IMG_RE_LIST = [
 ]
 
 LINK_RE = '\\[.+?\\]\\(.*?\\.md[\\)#]'
+
+HEXO_ABS_PATH = '/root/.nvm/versions/node/v10.15.2/bin/hexo'    # Hexo 启动文件的绝对路径
+HEXO_BASE_DIR = '/tmp/hexo'
+HEXO_ALGOLIA_INDEXING_KEY='eb82f2e78e3053f26aa408e9caa96d93'
+
+CMD_LIST = [
+    HEXO_ABS_PATH,
+    '--cwd',
+    HEXO_BASE_DIR,
+    'clean',
+    '&&',
+    HEXO_ABS_PATH,
+    'g',
+    '-d',
+    '&&',
+    'export',
+    f'HEXO_ALGOLIA_INDEXING_KEY={HEXO_ALGOLIA_INDEXING_KEY}',
+    '&&',
+    HEXO_ABS_PATH,
+    'algolia',
+]

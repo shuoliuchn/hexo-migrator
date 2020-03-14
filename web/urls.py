@@ -28,4 +28,5 @@ urlpatterns = [
     path('import/original/', views.BulkImportOriginal.as_view(), name='bulk_import_original'),
     path('bulk/hexo/generate/', views.bulk_hexo_generate, name='bulk_hexo_generate'),
     path('one/click/', views.one_click, name='one_click'),
+    path('hexo/build/', views.hexo_build, name='hexo_build'),
 ]

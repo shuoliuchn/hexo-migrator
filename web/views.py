@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
 from django import views
 from django.contrib.auth.backends import ModelBackend
 from django.conf import settings
+from django.shortcuts import render, redirect, HttpResponse
 
 from . import myforms, models
-from web.utils import PathHandler, FileHandler, DBHandler
+from web.utils import PathHandler, FileHandler, DBHandler, TerminalHandler
 
 
 class Login(views.View, ModelBackend):
@@ -156,6 +156,11 @@ def bulk_hexo_generate(request):
     hexo_file_handler.bulk_hexo_generate(blog_obj, blog_gen_dir)
     # return redirect('web:bulk_hexo_generate')
     return redirect('web:home')
+
+
+def hexo_build(request):
+    ret = TerminalHandler.hexo_build()
+    return HttpResponse(ret)
 
 
 def one_click(request):
