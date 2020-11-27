@@ -21,7 +21,7 @@
                             <a href="{% url 'web:categories_edit' categories.pk %}" class="btn btn-info btn-xs" title="修改">
                                 <i class="glyphicon glyphicon-edit"></i>
                             </a>
-                            <a href="{% url 'web:categories_del' categories.pk %}" class="btn btn-info btn-xs" title="删除">
+                            <a href="{% url 'web:categories_del' categories.pk %}" class="btn btn-danger btn-xs" title="删除">
                                 <i class="glyphicon glyphicon-trash"></i>
                             </a>
                         </td>
@@ -47,7 +47,7 @@
                         <a href="{% url 'web:tags_edit' tags.pk %}" class="btn btn-info btn-xs" title="修改">
                             <i class="glyphicon glyphicon-edit"></i>
                         </a>
-                        <a href="{% url 'web:tags_del' tags.pk %}" class="btn btn-info btn-xs" title="删除">
+                        <a href="{% url 'web:tags_del' tags.pk %}" class="btn btn-danger btn-xs" title="删除">
                             <i class="glyphicon glyphicon-trash"></i>
                         </a>
                     </td>

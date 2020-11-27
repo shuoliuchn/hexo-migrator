@@ -166,7 +166,7 @@ CATEGORY_DICT = {
 
 YAML_STR_RE = "^---\n.+?\n---\n\n"    # Front Matter 正则，匹配时需要设置 DOTALL
 TITLE_RE = '^#{1,3} .+?\n'    # 标题正则
-CODE_BLOCK_RE = '\n```.*?\n```\n'    # 代码块正则，匹配时需要设置 DOTALL
+CODE_BLOCK_RE = '\n\\s*?```.*?\n\\s*?```\n'    # 代码块正则，匹配时需要设置 DOTALL
 TOC_RE_LIST = [    # 匹配 [TOC]
     '\n[toc]\n',
     '\n[Toc]\n',
